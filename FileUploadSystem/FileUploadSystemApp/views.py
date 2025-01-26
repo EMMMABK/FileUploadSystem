@@ -15,12 +15,12 @@ def index(request):
 
         if c_form.is_valid():
             name = c_form.cleaned_data['file_name']
-            files = c_form.cleaned_data['files']
-            file_upload(file_name=name, my_file = files).save()
+            the_files = c_form.cleaned_data['files']
+            file_upload(file_name=name, my_file = the_files).save()
             message = "File successfully uploaded!"
         else:
             message = "File didn't upload."
-            
+
         return render(request, "FileUploadSystemApp/upload_status.html", {"message": message})
     else:
         context = {
