@@ -4,13 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Files</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #212529;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        /* Table container */
+        .table-container {
+            max-width: 900px;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Ensures cells don’t expand unpredictably */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+            word-wrap: break-word; /* Break long words to avoid overflow */
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .list_link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .list_link:hover {
+            color: #0056b3;
+        }
+
+        /* Back link */
+        .link_index {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ffc107;
+            color: #212529;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .link_index:hover {
+            background-color: #e0a800;
+            color: #fff;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-top: 10px;
+            }
+
+            /* Improve mobile view with horizontal scrolling for the table */
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                font-size: 12px;
+                width: auto; /* Allow the table to shrink */
+            }
+
+            .list_link {
+                font-size: 12px;
+            }
+
+            .link_index {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Make the header text smaller */
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            /* Adjust table cells further for very small screens */
+            th, td {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            .list_link {
+                font-size: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    {% for d in data %}
-        <p class="list_id">{{ forloop.counter }}</p>
-        <p class="list_title">{{ d.file_name }}</p>
-        <a href="{{ d.file_name.url }}" class="list_link">{{ d.my_file }}</a>
-    {% endfor %}
+    <h1>Uploaded Files</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File Name</th>
+                    <th>Download Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ d.file_name }}</td>
+                    <td><a href="{{ d.file_name.url }}" class="list_link">{{ d.my_file }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <a class="link_index" href="{% url 'index' %}">Back</a>
 </body>
