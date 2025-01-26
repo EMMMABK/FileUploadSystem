@@ -154,7 +154,7 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ d.file_name }}</td>
-                    <td><a href="{{ d.file_name.url }}" class="list_link">{{ d.my_file }}</a></td>
+                    <td><a href="{% url 'download_file' file_id=d.id %}" class="list_link">{{ d.my_file }}</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

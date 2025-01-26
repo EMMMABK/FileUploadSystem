@@ -1,4 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse, FileResponse
+from django.shortcuts import get_object_or_404
 from .forms import MyFileUploadForm
 from .models import file_upload
 # Create your views here.
@@ -33,3 +35,14 @@ def show_data(request):
     }
 
     return render(request, 'FileUploadSystemApp/list.html', context)
+
+
+def download_file(request, file_id):
+    file_instance = get_object_or_404(file_upload, id=file_id)
+    
+    file_content = file_instance.my_file.read()  
+
+    response = FileResponse(file_content, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file_instance.file_name}"'
+    
+    return response
