@@ -3,6 +3,8 @@ from django.http import HttpResponse, FileResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from .forms import MyFileUploadForm
 from .models import file_upload
+from django.core.files.storage import default_storage
+
 # Create your views here.
 
 def index(request):
@@ -11,8 +13,10 @@ def index(request):
 
         if c_form.is_valid():
             name = c_form.cleaned_data['file_name']
-            files = c_form.cleaned_data['files']
-            file_upload(file_name=name, my_file=files).save()
+            uploaded_file = c_form.cleaned_data['files']
+
+            file_content = uploaded_file.read()
+            file_upload(file_name=name, my_file=file_content).save()
 
             message = "File successfully uploaded!"
         else:
@@ -38,25 +42,23 @@ def show_data(request):
 
 
 def download_file(request, file_id):
-    # Fetch the file instance using the file_id
     file_instance = get_object_or_404(file_upload, id=file_id)
     
     try:
-        # Read the content of the file from the FileField
-        file_content = file_instance.my_file.read()  # Reads the file content from the database
+        file_content = file_instance.my_file 
 
-        # Create a response and serve it as a downloadable file
-        response = FileResponse(file_content, content_type='application/octet-stream')
+        response = HttpResponse(file_content, content_type='application/octet-stream')
         response['Content-Disposition'] = f'attachment; filename="{file_instance.file_name}"'
 
         return response
     
-    except FileNotFoundError:
+    except Exception:
         raise Http404("File not found.")
     
+
 def delete_file(request, file_id):
     file_instance = get_object_or_404(file_upload, id=file_id)
     
     file_instance.delete()
 
-    return redirect('show_data') 
+    return redirect('show_data')
