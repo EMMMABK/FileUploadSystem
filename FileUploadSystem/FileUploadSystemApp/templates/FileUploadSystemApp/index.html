@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
         <div class="filename__block">
             <label for="{{form.file_name.id_for_label}}">File Name:</label>
             {{form.file_name}}
@@ -15,6 +15,7 @@
             <label for="{{form.files.id_for_label}}">Upload your files:</label>
             {{form.files}}
         </div>
+        {% csrf_token %}
         <button type="submit">Submit</button>
     </form>
 </body>
