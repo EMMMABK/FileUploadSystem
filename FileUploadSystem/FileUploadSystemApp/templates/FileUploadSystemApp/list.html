@@ -170,7 +170,7 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ d.file_name }}</td>
-                        <td><a href="{{ d.file_name.url }}" download="{{ d.my_file }}" class="list_link">{{ d.my_file }}</a></td>
+                        <td><a href="{{ d.my_file.url }}" download="{{ d.my_file }}" class="list_link">{{ d.my_file }}</a></td>
                         <td><a href="{% url 'delete_file' file_id=d.id %}" class="delete_link" onclick="return confirm('Are you sure you want to delete this file?')">Delete</a></td>
                     </tr>
                 {% endfor %}
