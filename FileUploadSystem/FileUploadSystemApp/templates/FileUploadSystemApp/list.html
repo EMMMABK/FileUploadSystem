@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Files</title>
+</head>
+<body>
+    {% for d in data %}
+        <p class="list_id">{{ forloop.counter }}</p>
+        <p class="list_title">{{ d.file_name }}</p>
+        <a href="{{ d.file_name.url }}" class="list_link">{{ d.my_file }}</a>
+    {% endfor %}
+</body>
+</html>

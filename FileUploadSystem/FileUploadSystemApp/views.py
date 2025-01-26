@@ -20,3 +20,13 @@ def index(request):
             'form': MyFileUploadForm()
         }
         return render(request, 'FileUploadSystemApp/index.html', context)
+
+
+def show_data(request):
+    all_data = file_upload.objects.all()
+
+    context = {
+        'data': all_data
+    }
+
+    return render(request, 'FileUploadSystemApp/list.html', context)
