@@ -7,8 +7,14 @@
 </head>
 <body>
     <form action="" method="POST" enctype="multipart/form-data">
-        <input type="text" name="fileName" placeholder="Enter File Name">
-        <input type="file">
+        <div class="filename__block">
+            <label for="{{form.file_name.id_for_label}}">File Name:</label>
+            {{form.file_name}}
+        </div>
+        <div class="file__upload__block">
+            <label for="{{form.files.id_for_label}}">Upload your files:</label>
+            {{form.files}}
+        </div>
         <button type="submit">Submit</button>
     </form>
 </body>
