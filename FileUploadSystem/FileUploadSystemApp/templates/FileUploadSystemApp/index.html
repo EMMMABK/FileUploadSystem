@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>Upload</title>
 </head>
 <body>
@@ -16,8 +18,10 @@
             {{form.files}}
         </div>
         {% csrf_token %}
-        <button type="submit">Submit</button>
-    </form>
-    <a href="{% url 'show_data' %}">Click</a>
+        <div class="button-container">
+            <button type="submit">Submit</button>
+            <a href="{% url 'show_data' %}">Click</a>
+        </div>
+    </form>    
 </body>
 </html>

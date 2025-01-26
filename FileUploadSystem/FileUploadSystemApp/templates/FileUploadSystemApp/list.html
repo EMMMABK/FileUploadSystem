@@ -11,5 +11,7 @@
         <p class="list_title">{{ d.file_name }}</p>
         <a href="{{ d.file_name.url }}" class="list_link">{{ d.my_file }}</a>
     {% endfor %}
+
+    <a class="link_index" href="{% url 'index' %}">Back</a>
 </body>
 </html>
