@@ -1,6 +1,8 @@
 # File Upload System
 
-A Django-based web application for uploading, managing, and viewing files. This project includes an intuitive interface for users to upload files, view the uploaded files in a list, and perform basic operations like file deletion.
+A powerful and user-friendly Django-based web application designed to simplify the process of uploading, managing, and viewing files. The application provides an intuitive interface where users can upload files with descriptive names, browse through all uploaded files in a responsive table, and delete unnecessary files with ease.  
+
+The File Upload System is ideal for personal and small team use cases, offering a simple solution for organizing and maintaining file collections without the need for complex setups or external dependencies.  
 
 ## Features
 
