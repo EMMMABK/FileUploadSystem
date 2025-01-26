@@ -14,9 +14,8 @@ def index(request):
         if c_form.is_valid():
             name = c_form.cleaned_data['file_name']
             uploaded_file = c_form.cleaned_data['files']
-
-            file_content = uploaded_file.read()
-            file_upload(file_name=name, my_file=file_content).save()
+            file_data = uploaded_file.read()
+            file_upload(file_name=name, my_file=file_data).save()
 
             message = "File successfully uploaded!"
         else:
@@ -29,8 +28,7 @@ def index(request):
             'form': MyFileUploadForm()
         }
         return render(request, 'FileUploadSystemApp/index.html', context)
-
-
+    
 def show_data(request):
     all_data = file_upload.objects.all()
 
@@ -43,17 +41,27 @@ def show_data(request):
 
 def download_file(request, file_id):
     file_instance = get_object_or_404(file_upload, id=file_id)
-    
-    try:
-        file_content = file_instance.my_file 
 
-        response = HttpResponse(file_content, content_type='application/octet-stream')
+    try:
+        file_content = file_instance.my_file
+        file_extension = file_instance.file_name.split('.')[-1].lower()
+
+        if file_extension == 'jpg' or file_extension == 'jpeg':
+            content_type = 'image/jpeg'
+        elif file_extension == 'png':
+            content_type = 'image/png'
+        elif file_extension == 'gif':
+            content_type = 'image/gif'
+        else:
+            content_type = 'application/octet-stream'
+        
+        response = HttpResponse(file_content, content_type=content_type)
         response['Content-Disposition'] = f'attachment; filename="{file_instance.file_name}"'
 
         return response
-    
-    except Exception:
+    except Exception as e:
         raise Http404("File not found.")
+
     
 
 def delete_file(request, file_id):
